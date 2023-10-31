@@ -15,6 +15,25 @@
         <script type="text/babel">
             const rootElement = document.getElementById("root");
 
+            // const Child = () => {}
+            function Child() {
+
+                const [text, setText] = React.useState(() => {
+                    console.log("Child useState");
+                    return "";
+                });
+
+                console.log("Child render Start");
+                const element = (
+                    <>
+                        <input />
+                        <p></p>
+                    </>
+                );
+                console.log("Child render END");
+                return element
+            }
+
             const App = () => {
                 console.log("APP Render Start");
 
@@ -24,36 +43,30 @@
                 });
 
                 React.useEffect(() => {
-                    console.log("APP useState empty deps")
+                    console.log("APP useState empty deps");
                 }, []);
 
                 React.useEffect(() => {
-                    console.log("APP useState no deps")
+                    console.log("APP useState no deps");
                 });
 
                 React.useEffect(() => {
-                    console.log("APP useState [show]")
+                    console.log("APP useState [show]");
                 }, [show]);
 
                 function handleClick() {
                     setShow((prev) => !prev);
                 }
 
+                console.log("APP Render End");
+
                 return (
                     <>
                         <button onClick={handleClick}>Search</button>
-                        {show ? (
-                            <>
-                                <input />
-                                <p></p>
-                            </>
-                        ) : null}
+                        {show ? <Child /> : null}
                     </>
                 );
             };
-
-            console.log("APP Render End");
-
             ReactDOM.render(<App />, rootElement);
         </script>
     </body>
