@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <style>
+            .button {
+                background-color: #4caf50; /* Green */
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+            .blue {
+                background-color: #008cba;
+            } /* Blue */
+            .red {
+                background-color: #f44336;
+            } /* Red */
+            .gray {
+                background-color: #e7e7e7;
+                color: black;
+            } /* Gray */
+            .black {
+                background-color: #555555;
+            } /* Black */
+        </style>
+
+        <script type="text/babel">
+            /*
+            props = {className, style, children};
+            */
+            // const Button = (props) => {
+            //     return (<button {...props} />);
+            // };
+
+            // const Button = ({className, style, ...rest}) => {
+            //     return (<button className={`button ${className}`} style={style} {...rest} />);
+            // };
+
+            const Button = ({ style, ...rest }) => {
+                return (
+                    <button
+                        className={`button ${rest.className}`}
+                        // `...style`이 먼저 선언한 값을 덮어씀!
+                        style={{ ...style }}
+                        {...rest}
+                    />
+                );
+            };
+
+            // function Button({props}) {
+            //     return <button className="button" ...props />;
+            // }
+
+            const element = (
+                <>
+                    <Button className="button" style={{ borderRadius: "50%" }}>
+                        Green
+                    </Button>
+                    <Button className="button blue" style={{ borderRadius: 8, fontSize: 20 }}>
+                        Blue
+                    </Button>
+                    <Button className="button red">Red</Button>
+                    <Button className="button gray">Gray</Button>
+                    <Button className="button black">Black</Button>
+                </>
+            );
+
+            ReactDOM.render(element, document.getElementById("root"));
+        </script>
+    </body>
+</html>
