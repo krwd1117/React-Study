@@ -17,10 +17,26 @@
         const rootElement = document.getElementById("root")
 
         const App = () => {
-
-            const [keyword, setKeyword] = React.useState("");
+            
+            const [keyword, setKeyword] = React.useState(() => { 
+                    /*
+                    localStorage에 있는 값을 가져오다 보니 데이터가 클 경우 오래 걸릴 수 있음
+                    이럴 땐 이렇게 처리해서 데이터보다 렌더를 먼저 처리
+                    */
+                    console.log("init");
+                    return window.localStorage.getItem("keyword") 
+                });
             const [result, setResult] = React.useState("");
             const [typing, setTyping] = React.useState(false);
+
+            console.log("render");
+
+            React.useEffect( () => {
+                console.log("effect");
+                return window.localStorage.setItem("keyword", keyword);
+                // 사이드 이펙트를 일으키고 싶은 대상 (디펜던시 어레이)
+                // 디펜던시 어레이에 값을 넣지 않으면 모든 변화에 다 동작 함
+            }, [keyword, typing]);
 
             function handleChange(event) {
                 setKeyword(event.target.value);
@@ -34,7 +50,7 @@
 
             return (
             <>
-                <input onChange={handleChange} />
+                <input onChange={handleChange} value={keyword} />
                 <button onClick={handleClick}>search</button>
                 <p> {typing ? `Looking for ${keyword} ...` : result}  </p>
             </>
