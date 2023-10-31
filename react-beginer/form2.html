@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <script type="text/babel">
+            const rootElement = document.getElementById("root");
+
+            const App = () => {
+                const [message, setMessage] = React.useState("");
+                const [phoneNumber, setPhoneNumber] = React.useState("");
+
+                const handleSubmit = (event) => {
+                    event.preventDefault();
+                    alert(phoneNumber);
+                };
+
+                const handleChange = (event) => {
+                    if (event.target.value.startsWith(0)) {
+                        setMessage("Phone Number is valid");
+                        setPhoneNumber(event.target.value);
+                    } else if (event.target.value.length === 0) {
+                        setMessage("");
+                        setPhoneNumber("");
+                    } else {
+                        setMessage("Phone Number should starts width 0");
+                        setPhoneNumber("");
+                    }
+                };
+
+                return (
+                    <>
+                        <form onSubmit={handleSubmit}>
+                            <label htmlFor="phone">Phone Number: </label>
+                            <br />
+                            <input
+                                id="phone"
+                                name="phone"
+                                onChange={handleChange}
+                            />
+                            <p>{message}</p>
+                            <br />
+                            <br />
+                            <button
+                                type="submit"
+                                disabled={
+                                    phoneNumber.length === 0 ||
+                                    message.length === 0
+                                }
+                                value={phoneNumber} //controlled
+                            >
+                                Submit
+                            </button>
+                            <p>{phoneNumber}</p>
+                        </form>
+                    </>
+                );
+            };
+            ReactDOM.render(<App />, rootElement);
+        </script>
+    </body>
+</html>

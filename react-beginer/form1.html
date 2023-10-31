@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <script type="text/babel">
+            const rootElement = document.getElementById("root");
+
+            const App = () => {
+                function handleSubmit(event) {
+                    // form이 submit을 누르게 되면 새로고침 하는 것을 막음
+                    event.preventDefault();
+                    // console.log(event.target);
+                    console.dir(event.target.elements);
+                    alert(
+                        `FirstName: ${event.target.elements.fname.value}, LastName: ${event.target.elements.lname.value}`
+                    );
+                }
+
+                function handleSubmitSelect(event) {
+                    // form이 submit을 누르게 되면 새로고침 하는 것을 막음
+                    event.preventDefault();
+                    // console.log(event.target);
+                    console.dir(event.target.elements);
+                    alert(
+                        `Choose Car: ${event.target.elements.cars.value}`
+                    );
+                }
+
+                return (
+                    <>
+                        <form onSubmit={handleSubmit}>
+                            <label htmlFor="fname">First name:</label>
+                            <br />
+                            <input
+                                type="text"
+                                id="fname"
+                                name="fname"
+                                defaultValue="John"
+                            />
+                            <br />
+                            <label htmlFor="lname">Last name:</label>
+                            <br />
+                            <input
+                                type="text"
+                                id="lname"
+                                name="lname"
+                                defaultValue="Doe"
+                            />
+                            <br />
+                            <br />
+                            <input type="submit" value="Submit" />
+                        </form>
+
+                        <form onSubmit={handleSubmitSelect}>
+                            <label for="cars">Choose a car:</label>
+                            <select id="cars" name="cars">
+                                <option value="volvo">Volvo</option>
+                                <option value="saab">Saab</option>
+                                <option value="fiat">Fiat</option>
+                                <option value="audi">Audi</option>
+                            </select>
+                            <input type="submit" />
+                        </form>
+                    </>
+                );
+            };
+            ReactDOM.render(<App />, rootElement);
+        </script>
+    </body>
+</html>
