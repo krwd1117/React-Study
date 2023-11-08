@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <script type="text/babel">
+            const ID = ({ idChange }) => {
+                return (
+                    <>
+                        <input
+                            placeholder="아이디"
+                            type="text"
+                            onChange={ idChange }
+                        ></input>
+                    </>
+                );
+            };
+
+            const PW = ({ pwChange }) => {
+                return (
+                    <>
+                        <input
+                            placeholder="비밀번호"
+                            type="password"
+                            onChange={ pwChange }
+                        ></input>
+                    </>
+                );
+            };
+
+            const App = () => {
+                const [id, setID] = React.useState("");
+                const [pw, setPW] = React.useState("");
+
+                function idChange(e) {
+                    setID(e.target.value);
+                }
+
+                function pwChange(e) {
+                    setPW(e.target.value);
+                }
+
+                function login() {
+                    alert("로그인");
+                }
+
+                return (
+                    <>
+                        <ID handleChange={idChange} />
+                        <br />
+                        <PW handleChange={pwChange} />
+                        <br />
+                        <br />
+                        <button disabled={id.length === 0 || pw.length === 0}>로그인</button>
+                    </>
+                );
+            };
+
+            ReactDOM.render(<App />, document.getElementById("root"));
+        </script>
+    </body>
+</html>
